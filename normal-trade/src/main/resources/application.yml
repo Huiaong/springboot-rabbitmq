@@ -1,0 +1,23 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/rabbit?useUnicode=true&characterEncoding=UTF8
+    username: 'root'
+    password: 'root'
+  application:
+    name: spring-boot-rabbitmq-normal-trade
+  dubbo:
+    application:
+      name: normal-trade-service
+    protocol:
+      name: dubbo
+      port: 20881
+    registry:
+      address: zookeeper://127.0.0.1:2181
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: >
+    com.huiaong.normal.trade.(mq).model

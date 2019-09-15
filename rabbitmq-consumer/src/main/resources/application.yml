@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    userName: guest
+    passWord: guest
+    virtualHost: /
+    listener:
+      simple:
+        concurrency: 1
+        max-concurrency: 5
+        prefetch: 1
+        # consumer acknowledgement:消费者确认模式有3种：
+        #   none(没有消息会发送应答),
+        #   auto(自动应答),
+        #   manual(手动应答)。
+        #   为了保证消息可靠性，我们设置手动应答，这是为什么呢？
+        #   采用自动应答的方式，每次消费端收到消息后，不管是否处理完成，Broker都会把这条消息置为完成，
+        #   然后从Queue中删除。如果消费端消费时，抛出异常。
+        #   也就是说消费端没有成功消费该消息，从而造成消息丢失。
+        #   为了确保消息被消费者正确处理，我们采用手动应答(调用basicAck、basicNack、basicReject方法)，只有在消息得到正确处理下，再发送ACK。
+        acknowledge-mode: manual
+    template:
+      retry:
+        #启动发送重试策略
+        enabled: true
+        #初始重试间隔为3s
+        initial-interval: 3000
+        #重试的最大次数
+        max-attempts: 5
+        #重试间隔最多10s
+        max-interval: 10000
+        #每次重试的因子是3 等差
+        multiplier: 3
