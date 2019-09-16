@@ -8,7 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
-@Service
+@Service(version = "1.0.0")
+@org.springframework.stereotype.Service
 public class BrokerMessageLogServiceImpl implements BrokerMessageLogService {
 
     private final BrokerMessageLogDao brokerMessageLogDao;

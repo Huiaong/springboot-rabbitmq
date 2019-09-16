@@ -5,8 +5,8 @@ import com.huiaong.normal.trade.mq.model.BrokerMessageLog;
 import com.huiaong.normal.trade.mq.service.BrokerMessageLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +18,8 @@ public class HappySender implements RabbitTemplate.ConfirmCallback, RabbitTempla
 
 
     private final RabbitTemplate rabbitTemplate;
+    @Reference(version = "1.0.0")
+    private BrokerMessageLogService brokerMessageLogService;
 
     @Autowired
     public HappySender(RabbitTemplate rabbitTemplate) {
@@ -26,12 +28,7 @@ public class HappySender implements RabbitTemplate.ConfirmCallback, RabbitTempla
         this.rabbitTemplate.setReturnCallback(this);
     }
 
-    @Reference
-    private BrokerMessageLogService brokerMessageLogService;
-
     public void send(Map<String, String> param) {
-
-        BrokerMessageLog brokerMessageLog = brokerMessageLogService.findById(1L);
 
         this.rabbitTemplate.convertAndSend(param.get("exchange_name"), param.get("routing_key"), param.get("message"));
     }
