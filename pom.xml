@@ -23,7 +23,6 @@
 
     <modules>
         <module>normal-admin</module>
-        <module>rabbitmq-consumer</module>
         <module>normal-common</module>
         <module>normal-trade</module>
         <module>normal-trade-api</module>

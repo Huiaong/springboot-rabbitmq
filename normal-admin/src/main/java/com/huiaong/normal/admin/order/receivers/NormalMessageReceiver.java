@@ -1,12 +1,13 @@
-package com.huiaong.rabbitmq.consumer.receivers;
+package com.huiaong.normal.admin.order.receivers;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.huiaong.normal.trade.mq.enums.BrokerMessageStatus;
+import com.huiaong.normal.trade.mq.model.BrokerMessageLog;
+import com.huiaong.normal.trade.mq.service.BrokerMessageLogService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ import java.io.IOException;
 @Slf4j
 public class NormalMessageReceiver {
 
+    @Reference
+    private BrokerMessageLogService brokerMessageLogService;
 
     @RabbitListener(bindings = @QueueBinding(
             value = @Queue(
@@ -25,7 +28,10 @@ public class NormalMessageReceiver {
                     value = "normal-message.send.exchange",
                     durable = "true",
                     type = "topic",
-                    ignoreDeclarationExceptions = "true"
+                    ignoreDeclarationExceptions = "true",
+                    arguments = {
+                            @Argument(name = "alternate-exchange", value = "normal-message.delay-alternate.exchange")
+                    }
             ),
             key = "normal-message.send.routing-key"
     ))
@@ -52,5 +58,22 @@ public class NormalMessageReceiver {
             log.info("-------------------------消息处理失败------------------------");
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
         }
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            exchange = @Exchange(value = "normal-message.send.alternate-exchange", type = "fanout"),
+            value = @Queue(value = "normal-message.send.alternate-queue", durable = "true")
+    ))
+    public void alternateProcess(Object object, Channel channel, Message message) throws IOException {
+        Long relationId = Long.valueOf(message.getMessageProperties().getHeaders().get("spring_returned_message_correlation").toString());
+
+        BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
+        brokerMessageLog.setId(relationId);
+        brokerMessageLog.setStatus(BrokerMessageStatus.FAIL_SEND.value());
+
+        brokerMessageLogService.update(brokerMessageLog);
+
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        log.info("message(id:{}) routing error set fail to send", relationId);
     }
 }

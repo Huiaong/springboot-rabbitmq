@@ -10,4 +10,6 @@ public interface BrokerMessageLogService {
     BrokerMessageLog findByMessageId(String messageId);
 
     BrokerMessageLog create(BrokerMessageLog brokerMessageLog);
+
+    BrokerMessageLog update(BrokerMessageLog brokerMessageLog);
 }

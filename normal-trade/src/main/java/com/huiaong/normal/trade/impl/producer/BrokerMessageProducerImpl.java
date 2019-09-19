@@ -8,7 +8,6 @@ import com.huiaong.normal.trade.mq.enums.BrokerMessageStatus;
 import com.huiaong.normal.trade.mq.model.BrokerMessageLog;
 import com.huiaong.normal.trade.mq.producer.BrokerMessageProducer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Service
 @Component
 @Slf4j
-public class BrokerMessageProducerImpl implements BrokerMessageProducer, RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
+public class BrokerMessageProducerImpl implements BrokerMessageProducer, RabbitTemplate.ConfirmCallback {
 
     private final RabbitTemplate rabbitTemplate;
     private final BrokerMessageLogDao brokerMessageLogDao;
@@ -30,6 +29,7 @@ public class BrokerMessageProducerImpl implements BrokerMessageProducer, RabbitT
 
     @Override
     public void send(BrokerMessageLogDto brokerMessageLogDto) {
+//        rabbitTemplate.setReturnCallback(this);
         rabbitTemplate.setConfirmCallback(this);
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId(brokerMessageLogDto.getMessageId().toString());
@@ -49,18 +49,19 @@ public class BrokerMessageProducerImpl implements BrokerMessageProducer, RabbitT
         if (ack) {
             brokerMessageLog.setStatus(BrokerMessageStatus.HAS_SEND.value());
             brokerMessageLogDao.update(brokerMessageLog);
-            log.error("message(id:{}) send success", messageId);
+            log.info("message(id:{}) send success", messageId);
         } else {
             log.error("message(id:{}) send error, cause by:{}", messageId, cause);
         }
     }
 
-    @Override
-    public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
-        log.info("--------message:{}", message.getBody());
-        log.info("--------replyCode:{}", replyCode);
-        log.info("--------replyText:{}", replyText);
-        log.info("--------exchange:{}", exchange);
-        log.info("--------routingKey:{}", routingKey);
-    }
+//    @Override
+//    public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
+//        Long relationId = Long.valueOf(message.getMessageProperties().getHeaders().get("spring_returned_message_correlation").toString());
+//        BrokerMessageLog brokerMessageLog = brokerMessageLogDao.findById(relationId);
+//        brokerMessageLog.setStatus(BrokerMessageStatus.FAIL_SEND.value());
+//        int updateResult = brokerMessageLogDao.update(brokerMessageLog);
+//        log.info("update:{}", updateResult);
+//        log.error("message(id:{}) routing(key:{}) to queue error, exchange:{}, cause by:{}:{}", relationId, routingKey, exchange, replyCode, replyText);
+//    }
 }

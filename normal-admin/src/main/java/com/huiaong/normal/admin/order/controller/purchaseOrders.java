@@ -26,7 +26,21 @@ public class purchaseOrders {
                   模拟消息推送业务
             取消 采购订单 消息推送给用户
         */
-        BrokerMessageLogDto brokerMessageLogDto = buildNormalMessageDto();
+        BrokerMessageLogDto brokerMessageLogDto;
+        switch (id.toString()){
+            case "1":
+                brokerMessageLogDto = buildNormalMessageDto();
+                break;
+            case "2":
+                brokerMessageLogDto = buildErrorRoutingKeyNormalMessageDto();
+                break;
+            case "3":
+                brokerMessageLogDto = buildErrorExchangeNameNormalMessageDto();
+                break;
+            default:
+                brokerMessageLogDto = new BrokerMessageLogDto();
+        }
+
         Long brokerMessageLogId = normalMessageService.create(brokerMessageLogDto);
         brokerMessageLogDto.setMessageId(brokerMessageLogId);
 
@@ -39,6 +53,26 @@ public class purchaseOrders {
         BrokerMessageLogDto brokerMessageLogDto = new BrokerMessageLogDto();
         brokerMessageLogDto.setMessage("purchase order has been cancel");
         brokerMessageLogDto.setExchangeName("normal-message.send.exchange");
+        brokerMessageLogDto.setRoutingKey("normal-message.send.routing-key");
+        brokerMessageLogDto.setPlatform(NormalMessagePlatform.IOS.value());
+        brokerMessageLogDto.setSendTo(128L);
+        return brokerMessageLogDto;
+    }
+
+    private BrokerMessageLogDto buildErrorRoutingKeyNormalMessageDto() {
+        BrokerMessageLogDto brokerMessageLogDto = new BrokerMessageLogDto();
+        brokerMessageLogDto.setMessage("purchase order has been cancel");
+        brokerMessageLogDto.setExchangeName("normal-message.send.exchange");
+        brokerMessageLogDto.setRoutingKey("normal-message.send.routing-key1");
+        brokerMessageLogDto.setPlatform(NormalMessagePlatform.IOS.value());
+        brokerMessageLogDto.setSendTo(128L);
+        return brokerMessageLogDto;
+    }
+
+    private BrokerMessageLogDto buildErrorExchangeNameNormalMessageDto() {
+        BrokerMessageLogDto brokerMessageLogDto = new BrokerMessageLogDto();
+        brokerMessageLogDto.setMessage("purchase order has been cancel");
+        brokerMessageLogDto.setExchangeName("normal-message.send.exchange1");
         brokerMessageLogDto.setRoutingKey("normal-message.send.routing-key");
         brokerMessageLogDto.setPlatform(NormalMessagePlatform.IOS.value());
         brokerMessageLogDto.setSendTo(128L);

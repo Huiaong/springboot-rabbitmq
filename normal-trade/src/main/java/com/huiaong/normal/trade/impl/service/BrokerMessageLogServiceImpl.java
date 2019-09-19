@@ -40,4 +40,13 @@ public class BrokerMessageLogServiceImpl implements BrokerMessageLogService {
         }
         return brokerMessageLog;
     }
+
+    @Override
+    public BrokerMessageLog update(BrokerMessageLog brokerMessageLog) {
+        int updateResult = brokerMessageLogDao.update(brokerMessageLog);
+        if (updateResult != 1){
+            return null;
+        }
+        return brokerMessageLog;
+    }
 }

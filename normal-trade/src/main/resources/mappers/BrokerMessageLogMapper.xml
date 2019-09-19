@@ -67,7 +67,7 @@
             <if test="tryCount != null">try_count = #{tryCount},</if>
             <if test="status != null">status = #{status},</if>
             <if test="nextRetry != null">next_retry = #{nextRetry},</if>
-            updated_at=now()
+            update_time=now()
         </set>
         where id = #{id}
     </update>
