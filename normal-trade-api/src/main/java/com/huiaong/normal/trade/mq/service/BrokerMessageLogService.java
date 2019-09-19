@@ -9,5 +9,5 @@ public interface BrokerMessageLogService {
 
     BrokerMessageLog findByMessageId(String messageId);
 
-    Boolean create(BrokerMessageLog brokerMessageLog);
+    BrokerMessageLog create(BrokerMessageLog brokerMessageLog);
 }

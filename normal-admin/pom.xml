@@ -7,9 +7,9 @@
         <artifactId>rabbitmq</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>normal-trade</artifactId>
+    <artifactId>normal-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>normal-trade</name>
+    <name>normal-admin</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -19,14 +19,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -35,19 +29,11 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.huiaong</groupId>
             <artifactId>normal-trade-api</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.huiaong</groupId>
-            <artifactId>normal-common</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>

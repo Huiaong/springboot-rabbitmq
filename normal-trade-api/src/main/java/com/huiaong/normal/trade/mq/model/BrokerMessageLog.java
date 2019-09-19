@@ -2,10 +2,11 @@ package com.huiaong.normal.trade.mq.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class BrokerMessageLog {
+public class BrokerMessageLog implements Serializable {
 
     private Long id;
 
@@ -15,6 +16,9 @@ public class BrokerMessageLog {
 
     private int tryCount;
 
+    /**
+     * @see com.huiaong.normal.trade.mq.enums.BrokerMessageStatus
+     */
     private int status;
 
     private Date nextRetry;

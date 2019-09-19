@@ -2,14 +2,17 @@ package com.huiaong.normal.trade.impl.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.huiaong.normal.trade.impl.dao.BrokerMessageLogDao;
+import com.huiaong.normal.trade.mq.dto.BrokerMessageLogDto;
+import com.huiaong.normal.trade.mq.enums.BrokerMessageStatus;
 import com.huiaong.normal.trade.mq.model.BrokerMessageLog;
 import com.huiaong.normal.trade.mq.service.BrokerMessageLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-@Service(version = "1.0.0")
-@org.springframework.stereotype.Service
+@Service
+@Component
 public class BrokerMessageLogServiceImpl implements BrokerMessageLogService {
 
     private final BrokerMessageLogDao brokerMessageLogDao;
@@ -30,7 +33,11 @@ public class BrokerMessageLogServiceImpl implements BrokerMessageLogService {
     }
 
     @Override
-    public Boolean create(BrokerMessageLog brokerMessageLog) {
-        return brokerMessageLogDao.create(brokerMessageLog) == 1;
+    public BrokerMessageLog create(BrokerMessageLog brokerMessageLog) {
+        int createResult = brokerMessageLogDao.create(brokerMessageLog);
+        if (createResult != 1){
+            return null;
+        }
+        return brokerMessageLog;
     }
 }

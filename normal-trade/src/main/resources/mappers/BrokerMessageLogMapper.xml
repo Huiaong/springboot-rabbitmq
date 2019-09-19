@@ -3,13 +3,13 @@
 <mapper namespace="com.huiaong.normal.trade.impl.dao.BrokerMessageLogDao">
     <resultMap type="com.huiaong.normal.trade.mq.model.BrokerMessageLog" id="BrokerMessageLogMap">
         <id property="id" column="id"/>
-        <result property="messageId" column="message_id"/>
+        <result property="message_id" column="messageId"/>
         <result property="message" column="message"/>
-        <result property="tryCount" column="try_count"/>
+        <result property="try_count" column="tryCount"/>
         <result property="status" column="status"/>
-        <result property="nextRetry" column="next_retry"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="update_time"/>
+        <result property="next_retry" column="nextRetry"/>
+        <result property="create_time" column="createTime"/>
+        <result property="update_time" column="updateTime"/>
     </resultMap>
 
     <sql id="tb">
@@ -61,10 +61,15 @@
         </where>
     </select>
 
-    <update id="updateStatusByIdAndCurrentStatus" parameterType="map">
+    <update id="update" parameterType="com.huiaong.normal.trade.mq.model.BrokerMessageLog">
         update <include refid="tb"/>
-        set `status` = #{targetStatus}
-        where id = #{id} and `status` = #{currentStatus}
+        <set>
+            <if test="tryCount != null">try_count = #{tryCount},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="nextRetry != null">next_retry = #{nextRetry},</if>
+            updated_at=now()
+        </set>
+        where id = #{id}
     </update>
 
     <insert id="create" parameterType="com.huiaong.normal.trade.mq.model.BrokerMessageLog" keyProperty="id" useGeneratedKeys="true">

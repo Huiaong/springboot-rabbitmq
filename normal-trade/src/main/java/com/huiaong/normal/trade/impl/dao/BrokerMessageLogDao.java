@@ -13,4 +13,7 @@ public interface BrokerMessageLogDao {
     BrokerMessageLog findByMessageId(String messageId);
 
     int create(BrokerMessageLog brokerMessageLog);
+
+    int update(BrokerMessageLog brokerMessageLog);
+
 }

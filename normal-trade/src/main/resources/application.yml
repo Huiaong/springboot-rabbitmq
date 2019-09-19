@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -7,15 +6,22 @@ spring:
     password: 'root'
   application:
     name: spring-boot-rabbitmq-normal-trade
-  dubbo:
-    application:
-      name: normal-trade-service
-    protocol:
-      name: dubbo
-      port: 20880
-    scan: com.huiaong.normal.trade.impl.service
-    registry:
-      address: zookeeper://127.0.0.1:2181
+
+dubbo:
+  application:
+    name: normal-trade-dubbo-provider
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 12345
+    status: server
+  registry:
+    id: zookeeper
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    basePackages: >
+      com.huiaong.normal.trade.impl.service,
+      com.huiaong.normal.trade.impl.producer
 
 
 mybatis:
