@@ -44,7 +44,7 @@ public class BrokerMessageProducerImpl implements BrokerMessageProducer, RabbitT
             throw new RuntimeException("message id not allow null");
         }
 
-        BrokerMessageLog brokerMessageLog = brokerMessageLogDao.findById(Long.valueOf(messageId));
+        BrokerMessageLog brokerMessageLog = brokerMessageLogDao.findByMessageId(messageId);
 
         if (ack) {
             brokerMessageLog.setStatus(BrokerMessageStatus.HAS_SEND.value());

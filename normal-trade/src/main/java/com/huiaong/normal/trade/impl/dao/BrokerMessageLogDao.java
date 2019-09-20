@@ -4,6 +4,8 @@ package com.huiaong.normal.trade.impl.dao;
 import com.huiaong.normal.trade.mq.model.BrokerMessageLog;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BrokerMessageLogDao {
 
@@ -16,4 +18,7 @@ public interface BrokerMessageLogDao {
 
     int update(BrokerMessageLog brokerMessageLog);
 
+    List<BrokerMessageLog> findArticleOneHundredFailToSendMessage();
+
+    int updateByMessageId(BrokerMessageLog brokerMessageLog);
 }

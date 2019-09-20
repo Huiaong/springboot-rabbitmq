@@ -1,7 +1,10 @@
 package com.huiaong.normal.trade.mq.service;
 
 
+import com.huiaong.normal.trade.mq.dto.BrokerMessageLogDto;
 import com.huiaong.normal.trade.mq.model.BrokerMessageLog;
+
+import java.util.List;
 
 public interface BrokerMessageLogService {
 
@@ -12,4 +15,8 @@ public interface BrokerMessageLogService {
     BrokerMessageLog create(BrokerMessageLog brokerMessageLog);
 
     BrokerMessageLog update(BrokerMessageLog brokerMessageLog);
+
+    List<BrokerMessageLogDto> findArticleOneHundredFailToSendMessage();
+
+    BrokerMessageLog updateByMessageId(BrokerMessageLog brokerMessageLog);
 }

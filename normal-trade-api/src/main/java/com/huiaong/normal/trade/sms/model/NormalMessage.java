@@ -4,9 +4,10 @@ import com.huiaong.normal.trade.sms.enums.NormalMessagePlatform;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
-public class NormalMessage  implements Serializable {
+public class NormalMessage implements Serializable {
 
     private Long id;
 
@@ -19,8 +20,8 @@ public class NormalMessage  implements Serializable {
 
     private Long sendTo;
 
-    private Data createTime;
+    private Date createTime;
 
-    private Data updateTime;
+    private Date updateTime;
 
 }

@@ -68,10 +68,10 @@ public class NormalMessageReceiver {
         Long relationId = Long.valueOf(message.getMessageProperties().getHeaders().get("spring_returned_message_correlation").toString());
 
         BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
-        brokerMessageLog.setId(relationId);
+        brokerMessageLog.setMessageId(relationId);
         brokerMessageLog.setStatus(BrokerMessageStatus.FAIL_SEND.value());
 
-        brokerMessageLogService.update(brokerMessageLog);
+        brokerMessageLogService.updateByMessageId(brokerMessageLog);
 
         channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         log.info("message(id:{}) routing error set fail to send", relationId);
