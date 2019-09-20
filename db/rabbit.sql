@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 18/09/2019 11:24:15
+ Date: 20/09/2019 14:50:57
 */
 
 SET NAMES utf8mb4;
@@ -27,11 +27,11 @@ CREATE TABLE `broker_message_log`  (
   `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `try_count` smallint(1) NOT NULL DEFAULT 0,
   `status` smallint(1) NOT NULL DEFAULT 0,
-  `next_retry` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  `next_retry` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for normal_message
@@ -44,6 +44,6 @@ CREATE TABLE `normal_message`  (
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
