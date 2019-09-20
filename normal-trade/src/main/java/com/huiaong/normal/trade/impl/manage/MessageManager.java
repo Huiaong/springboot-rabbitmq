@@ -43,9 +43,10 @@ public class MessageManager {
 
 
         BrokerMessageLog brokerMessageLog = new BrokerMessageLog();
-        brokerMessageLog.setMessageId(normalMessage.getId().toString());
+        brokerMessageLog.setMessageId(normalMessage.getId());
         brokerMessageLog.setStatus(BrokerMessageStatus.WAIT_SEND.value());
 
+        brokerMessageLogDto.setMessageId(normalMessage.getId());
         String json = null;
         try {
             json = objectMapper.writeValueAsString(brokerMessageLogDto);

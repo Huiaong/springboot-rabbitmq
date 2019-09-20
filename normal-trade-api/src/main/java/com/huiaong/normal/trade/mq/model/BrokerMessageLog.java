@@ -10,7 +10,7 @@ public class BrokerMessageLog implements Serializable {
 
     private Long id;
 
-    private String messageId;
+    private Long messageId;
 
     private String message;
 

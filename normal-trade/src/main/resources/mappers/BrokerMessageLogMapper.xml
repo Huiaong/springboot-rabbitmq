@@ -3,13 +3,13 @@
 <mapper namespace="com.huiaong.normal.trade.impl.dao.BrokerMessageLogDao">
     <resultMap type="com.huiaong.normal.trade.mq.model.BrokerMessageLog" id="BrokerMessageLogMap">
         <id property="id" column="id"/>
-        <result property="message_id" column="messageId"/>
+        <result property="messageId" column="message_id"/>
         <result property="message" column="message"/>
-        <result property="try_count" column="tryCount"/>
+        <result property="tryCount" column="try_count"/>
         <result property="status" column="status"/>
-        <result property="next_retry" column="nextRetry"/>
-        <result property="create_time" column="createTime"/>
-        <result property="update_time" column="updateTime"/>
+        <result property="nextRetry" column="next_retry"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <sql id="tb">
@@ -36,7 +36,7 @@
     </sql>
 
     <sql id="values">
-        #{messageId}, #{message}, #{tryCount}, #{status}, #{nextRetry},
+        #{messageId}, #{message}, #{tryCount}, #{status}, ADDDATE( now(), INTERVAL 1 MINUTE ),
          now(), now()
     </sql>
 
@@ -61,6 +61,14 @@
         </where>
     </select>
 
+    <select id="findArticleOneHundredFailToSendMessage" resultMap="BrokerMessageLogMap">
+        select <include refid="cols"/>
+        from <include refid="tb"/>
+        where status = 0
+        and try_count &lt; 3
+        and next_retry &lt; now()
+    </select>
+
     <update id="update" parameterType="com.huiaong.normal.trade.mq.model.BrokerMessageLog">
         update <include refid="tb"/>
         <set>
@@ -70,6 +78,17 @@
             update_time=now()
         </set>
         where id = #{id}
+    </update>
+
+    <update id="updateByMessageId" parameterType="com.huiaong.normal.trade.mq.model.BrokerMessageLog">
+        update <include refid="tb"/>
+        <set>
+            <if test="tryCount != null">try_count = #{tryCount},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="nextRetry != null">next_retry = #{nextRetry},</if>
+            update_time=now()
+        </set>
+        where message_id = #{messageId}
     </update>
 
     <insert id="create" parameterType="com.huiaong.normal.trade.mq.model.BrokerMessageLog" keyProperty="id" useGeneratedKeys="true">

@@ -31,6 +31,9 @@ spring:
     #    实现ReturnCallBack接口，消息从Exchange发送到指定的Queue失败触发回调
     publisher-returns: true
 
+logging:
+  level:
+    com.huiaong.normal.trade.impl.dao: DEBUG
 
 dubbo:
   application:
