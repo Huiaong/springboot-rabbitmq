@@ -38,6 +38,10 @@
             <artifactId>normal-trade-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.huiaong</groupId>
+            <artifactId>normal-item-api</artifactId>
+        </dependency>
 
     </dependencies>
 

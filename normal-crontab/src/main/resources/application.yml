@@ -1,0 +1,11 @@
+server:
+  port: 8083
+
+dubbo:
+  scan:
+    basePackages: com.huiaong.normal.crontab
+  application:
+    name: normal-crontab-dubbo-consumer
+  registry:
+    id: zookeeper
+    address: zookeeper://127.0.0.1:2181

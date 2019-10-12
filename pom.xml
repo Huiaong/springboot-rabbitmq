@@ -26,6 +26,9 @@
         <module>normal-common</module>
         <module>normal-trade</module>
         <module>normal-trade-api</module>
+        <module>normal-crontab</module>
+        <module>normal-item</module>
+        <module>normal-item-api</module>
     </modules>
 
     <dependencies>
@@ -89,27 +92,6 @@
                 <scope>runtime</scope>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-core</artifactId>-->
-<!--                <version>2.7.3</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-databind</artifactId>-->
-<!--                <version>2.7.3</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-annotations</artifactId>-->
-<!--                <version>2.7.3</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.datatype</groupId>-->
-<!--                <artifactId>jackson-datatype-guava</artifactId>-->
-<!--                <version>2.7.3</version>-->
-<!--            </dependency>-->
-
 
             <dependency>
                 <groupId>com.huiaong</groupId>
@@ -120,6 +102,18 @@
             <dependency>
                 <groupId>com.huiaong</groupId>
                 <artifactId>normal-trade</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.huiaong</groupId>
+                <artifactId>normal-item-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.huiaong</groupId>
+                <artifactId>normal-item</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

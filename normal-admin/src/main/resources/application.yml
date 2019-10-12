@@ -1,12 +1,9 @@
-
 server:
   port: 8080
 
 dubbo:
   scan:
-    basePackages: >
-      com.huiaong.normal.admin.order.controller,
-      com.huiaong.normal.admin.order.receivers
+    basePackages: com.huiaong.normal.admin
   application:
     name: normal-admin-dubbo-consumer
   registry:

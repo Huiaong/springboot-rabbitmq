@@ -36,21 +36,16 @@ logging:
     com.huiaong.normal.trade.impl.dao: DEBUG
 
 dubbo:
+  scan:
+    basePackages: com.huiaong.normal.crontab
   application:
-    name: normal-trade-dubbo-provider
-  protocol:
-    id: dubbo
-    name: dubbo
-    port: 12345
-    status: server
+    name: normal-crontab-dubbo-consumer
   registry:
     id: zookeeper
     address: zookeeper://127.0.0.1:2181
-  scan:
-    basePackages: com.huiaong.normal.trade.impl
-
 
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: >
-    com.huiaong.normal.trade.(mq).model
+    com.huiaong.normal.item.(log).model
+
