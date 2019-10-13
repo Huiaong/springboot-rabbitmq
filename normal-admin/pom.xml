@@ -43,6 +43,11 @@
             <artifactId>normal-item-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.huiaong</groupId>
+            <artifactId>normal-common</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/admin/purchase-order")
-public class purchaseOrders {
+public class PurchaseOrders {
 
     @Reference
     private PurchaseOrderLogService purchaseOrderLogService;

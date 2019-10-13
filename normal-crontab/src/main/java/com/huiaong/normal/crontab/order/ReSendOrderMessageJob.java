@@ -14,7 +14,6 @@ import java.util.List;
 
 @Component
 @Slf4j
-@EnableScheduling
 public class ReSendOrderMessageJob {
 
     @Reference

@@ -32,3 +32,7 @@ spring:
         #   也就是说消费端没有成功消费该消息，从而造成消息丢失。
         #   为了确保消息被消费者正确处理，我们采用手动应答(调用basicAck、basicNack、basicReject方法)，只有在消息得到正确处理下，再发送ACK。
         acknowledge-mode: manual
+
+rabbitmq:
+  reliableDelivery:
+    delay: 10000

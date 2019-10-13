@@ -11,11 +11,23 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 12/10/2019 15:38:03
+ Date: 13/10/2019 16:44:58
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for normal_reliable_delivery
+-- ----------------------------
+DROP TABLE IF EXISTS `normal_reliable_delivery`;
+CREATE TABLE `normal_reliable_delivery`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `message_id` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息id',
+  `created_at` datetime(0) NOT NULL,
+  `updated_at` datetime(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for normal_trade_mq_response
@@ -33,6 +45,6 @@ CREATE TABLE `normal_trade_mq_response`  (
   `created_at` datetime(0) NOT NULL COMMENT '创建时间',
   `updated_at` datetime(0) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

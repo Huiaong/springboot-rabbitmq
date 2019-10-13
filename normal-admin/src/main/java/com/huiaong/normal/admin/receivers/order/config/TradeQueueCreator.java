@@ -1,4 +1,4 @@
-package com.huiaong.normal.admin.receivers.mq.config;
+package com.huiaong.normal.admin.receivers.order.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

@@ -1,4 +1,4 @@
-package com.huiaong.normal.admin.receivers.mq;
+package com.huiaong.normal.admin.receivers.order;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.huiaong.normal.trade.mq.service.TradeMQResponseService;

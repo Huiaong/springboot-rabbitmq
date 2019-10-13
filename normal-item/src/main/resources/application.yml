@@ -37,7 +37,7 @@ logging:
 
 dubbo:
   scan:
-    basePackages: com.huiaong.normal.crontab
+    basePackages: com.huiaong.normal.item.impl
   application:
     name: normal-crontab-dubbo-consumer
   registry:
@@ -47,5 +47,6 @@ dubbo:
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   type-aliases-package: >
-    com.huiaong.normal.item.(log).model
+    com.huiaong.normal.item.log.model,
+    com.huiaong.normal.item.mq.model
 
